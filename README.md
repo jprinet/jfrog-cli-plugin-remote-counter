@@ -1,12 +1,11 @@
-# hello-frog
+# remote-counter
 
 ## About this plugin
 This plugin counts downloads initiated from Artifactory's remote repositories. 
-Counts are issued per user and per remote repository.
 
 It is possible to filter:
-- on user
-- on remote repository
+- per users
+- per remote repositories
 - on date range
 
 Results are sent to stdout and can be exported to a csv file.
@@ -30,11 +29,14 @@ Uninstalling a plugin
 ## Usage
 
 ### Prerequisites
-As of now, Artifactory is not exposing metrics on remote download counts. [Install](https://www.jfrog.com/confluence/display/JFROG/User+Plugins#UserPlugins-DeployingPlugins) the [remote-counter](artifactory-user-plugin/remote-counter.groovy) user plugin in your instance to get those computed. 
+As of now, Artifactory is not exposing metrics on remote download counts. 
 
-This plugin needs the remote-counter-local generic local repository to be created in your Artifactory instance and all users to be allowed to deploy into this repository.
+- [Install](https://www.jfrog.com/confluence/display/JFROG/User+Plugins#UserPlugins-DeployingPlugins) the [remote-counter](artifactory-user-plugin/remote-counter.groovy) user plugin in your instance to get those computed. 
 
-This plugin creates an horodated empty file each time a download is happening from a remote repository.
+- This plugin needs a generic local repository named **remote-counter-local** to be created in your Artifactory instance and all users to be allowed to deploy into this repository.
+
+This plugin creates an horodated empty file each time a download is happening from a remote repository (list of remote repositories can be tweaked).
+There is a policy to remove files older than 30 days by default.
 
 ### Commands
 * remote-counter
@@ -46,6 +48,10 @@ This plugin creates an horodated empty file each time a download is happening fr
         - csv: export output to a csv file with the given name **[Default: none]**
     - Example:
     ```
+    $ jfrog remote-counter
+    [Info] Connected to http://artifactory-local.com/artifactory/
+    [Info] ALL_USERS,ALL_REPOS,17379
+
     $ jfrog remote-counter --user=alice,bob,pipelines --repo=foo-mvn,foo-go,bar-mvn,bar-docker --before=2020-31-12T10:00:00 --after=2020-31-01T10:00:00 --csv=output.csv
     [Info] Connected to http://artifactory-local.com/artifactory/
     [Info] alice,foo-mvn,42
@@ -64,6 +70,7 @@ This plugin creates an horodated empty file each time a download is happening fr
     [Info] pipelines,bar-docker,456
     [Info] pipelines,ALL_REPOS,17180
     [Info] ALL_USERS,ALL_REPOS,17379
+
     ```
 
 ## Release Notes
