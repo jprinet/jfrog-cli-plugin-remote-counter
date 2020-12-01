@@ -1,2 +1,2 @@
-## 1.0.0 (September 11, 2020)
+## 1.0.0 (November 30th, 2020)
 - Initial release.

@@ -9,9 +9,7 @@ It is possible to filter:
 - on remote repository
 - on date range
 
-Results are sent to stdout and can be exported to a:
-- csv file 
-- json file
+Results are sent to stdout and can be exported to a csv file.
 
 This plugin may be particularily helpful in situations where a central repository (ie. Dockerhub) is limiting the download rate.
 It allows to understand the distribution of the requests per user.
@@ -43,28 +41,30 @@ This plugin creates an horodated empty file each time a download is happening fr
     - Flags:
         - user: filter downloads on given csv list of users **[Default: all]**
         - repo: filter downloads on given csv list of remote repositories **[Default: all]**
-        - before: filter downloads issued before given date YYYY-MM-DDThh:mm:ss (THH:mm:ss is optional) **[Default: none]**
-        - after: filter downloads issued after given date YYYY-MM-DDThh:mm:ss (THH:mm:ss is optional) **[Default: none]**
-        - export: export output to a file (csv or json) **[Default: none]**
+        - after: filter downloads issued after given date (formatted as 2006-01-02 or 2006-01-02T15:04:05) **[Default: 1970-12-31]**
+        - before: filter downloads issued before given date (formatted as 2006-01-02 or 2006-01-02T15:04:05) **[Default: 2999-12-31]**
+        - csv: export output to a csv file with the given name **[Default: none]**
     - Example:
     ```
-    $ jfrog remote-counter --user=alice,bob,pipelines --repo=foo-mvn,foo-go,bar-mvn,bar-docker --before=2020-31-12T10:00:00 --after=2020-31-01T10:00:00 --export=csv
-    alice,foo-mvn,42
-    alice,foo-go,0
-    alice,bar-mvn,0
-    alice,bar-docker,0
-    bob,foo-mvn,1
-    bob,foo-go,2
-    bob,bar-mvn,150
-    bob,bar-docker,4
-    pipelines,foo-mvn,1679
-    pipelines,foo-go,13456
-    pipelines,bar-mvn,1589
-    pipelines,bar-docker,456
+    $ jfrog remote-counter --user=alice,bob,pipelines --repo=foo-mvn,foo-go,bar-mvn,bar-docker --before=2020-31-12T10:00:00 --after=2020-31-01T10:00:00 --csv=output.csv
+    [Info] Connected to http://artifactory-local.com/artifactory/
+    [Info] alice,foo-mvn,42
+    [Info] alice,foo-go,0
+    [Info] alice,bar-mvn,0
+    [Info] alice,bar-docker,0
+    [Info] alice,ALL_REPOS,42
+    [Info] bob,foo-mvn,1
+    [Info] bob,foo-go,2
+    [Info] bob,bar-mvn,150
+    [Info] bob,bar-docker,4
+    [Info] bob,ALL_REPOS,157
+    [Info] pipelines,foo-mvn,1679
+    [Info] pipelines,foo-go,13456
+    [Info] pipelines,bar-mvn,1589
+    [Info] pipelines,bar-docker,456
+    [Info] pipelines,ALL_REPOS,17180
+    [Info] ALL_USERS,ALL_REPOS,17379
     ```
-
-## Additional info
-None.
 
 ## Release Notes
 The release notes are available [here](RELEASE.md).
