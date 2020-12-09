@@ -52,7 +52,7 @@ There is a policy to remove files older than 30 days by default.
     [Info] Connected to http://artifactory-local.com/artifactory/
     [Info] ALL_USERS,ALL_REPOS,17379
 
-    $ jfrog remote-counter --user=alice,bob,pipelines --repo=foo-mvn,foo-go,bar-mvn,bar-docker --before=2020-31-12T10:00:00 --after=2020-31-01T10:00:00 --csv=output.csv
+    $ jfrog remote-counter --user=alice,bob,pipelines --repo=foo-mvn,foo-go,bar-mvn,bar-docker --before=2020-12-31T10:00:00 --after=2020-01-31T10:00:00 --csv=output.csv
     [Info] Connected to http://artifactory-local.com/artifactory/
     [Info] alice,foo-mvn,42
     [Info] alice,foo-go,0
